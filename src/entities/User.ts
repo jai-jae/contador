@@ -36,7 +36,7 @@ class User extends BaseEntity {
     @OneToMany(type => Message, message => message.sender)
     messages: Message[];
 
-    @ManyToMany(type => Channel, channel => channel.users, { cascade: true })
+    @ManyToMany(type => Channel, channel => channel.users)
     channels: Channel[];
 
     @CreateDateColumn()

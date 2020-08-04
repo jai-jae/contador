@@ -32,11 +32,11 @@ export type CreateUserResponse = {
   error?: Maybe<Scalars['String']>;
 };
 
-export type GetAllUserResponse = {
-  __typename?: 'GetAllUserResponse';
+export type GetAllUsersResponse = {
+  __typename?: 'GetAllUsersResponse';
   ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
-  user?: Maybe<Array<Maybe<User>>>;
+  users?: Maybe<Array<Maybe<User>>>;
 };
 
 export type GetUserResponse = {
@@ -112,8 +112,8 @@ export type PostMessageResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  GetAllUsers: GetAllUsersResponse;
   GetUser: GetUserResponse;
-  GetAllUsers: GetAllUserResponse;
 };
 
 
