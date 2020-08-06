@@ -3,18 +3,36 @@ import User from "../../../entities/User";
 import Channel from "../../../entities/Channel";
 
 
+/*
+    it needs optimization
+    all userIds inside the channel is UNIQUE
+*/
+
+function isUserValid(users: User[], user: User): boolean {
+    const userId = user.id;
+    for (var i = 0; i < users.length; i++) {
+        if (users[i].id === userId) {
+            return true;
+        }
+    }
+    return false;
+}
+
 const MessageFilter = async (payload, _, { context }) => {
     const user: User = context.currentUser;
-    const {
-    MessageSubscription: { channelId }
-    } = payload;
-    console.log("channel ID : ", channelId, "\n\n")
-    console.log('payload : ', payload, '\n\n')
-    console.log(user)
+    const { MessageSubscription: { channelId } } = payload;
     try {
-        const channel = await Channel.findOne({id: channelId}, {relations: ["users"]})
-        console.log("channel db qery: ", channel)
-        return true;
+        const channel: Promise<Channel | undefined> =  Channel.findOne({id: channelId})
+        const users: Promise<User[]> =  User.createQueryBuilder("user")
+                                .select("user.id")
+                                .innerJoin("user.channels", "channel", "channel.id = 1")
+                                .getMany();
+        const results = await Promise.all([channel, users])
+        if (isUserValid(results[1], user)) {
+            console.log("message successfully sent to subscribers")
+            return true;
+        };
+        return false;
     } catch(error) {
         return false;
     }
