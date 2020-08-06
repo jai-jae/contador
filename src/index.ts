@@ -4,16 +4,41 @@ import app from "./app";
 import { Options } from "graphql-yoga";
 import { createConnection } from "typeorm";
 import dbConnOptions from "./ormconfig";
+import decodeJWT from "./utils/DecodeJWT";
 
 const PORT: number | string = 4242;
 const PLAYGROUND_ENDPOINT: string = "/playground";
-const GRAPHQL_ENDPOINT: string = "/graphql"
+const GRAPHQL_ENDPOINT: string = "/graphql";
+const SUBSCRIPTION_ENDPOINT: string = "/subscription";
+
+
+const wsJWTAuth = async connectionCookies => {
+    const token = connectionCookies["X-JWT"];
+    if (token) {
+        const user = await decodeJWT(token);
+        if (user) {
+            return {
+                currentUser: user
+            };
+        } else {
+            return {
+                currentUser: undefined
+            };
+        }
+    } else {
+        throw new Error("No JWT. Not authorized");
+    }
+};
 
 const appOptions: Options = {
     port: PORT,
     playground: PLAYGROUND_ENDPOINT,
-    endpoint: GRAPHQL_ENDPOINT
-}
+    endpoint: GRAPHQL_ENDPOINT,
+    subscriptions: {
+        path: SUBSCRIPTION_ENDPOINT,
+        onConnect: wsJWTAuth,
+    }
+};
 
 const handler = function() {
     console.log(`Server listening on ${PORT}`)

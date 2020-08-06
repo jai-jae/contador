@@ -1,0 +1,9 @@
+type ResponseGetChannelById {
+    ok: Boolean!
+    error: String
+    channel: Channel
+}
+
+type Query {
+    GetChannelById(channelId: Int!): ResponseGetChannelById!
+}

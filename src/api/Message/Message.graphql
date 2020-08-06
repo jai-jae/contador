@@ -2,6 +2,7 @@ type Message {
     id: Int!
     content: String!
     channel: Channel!
+    channelId: Int!
     sender: User!
     createdAt: String!
     updatedAt: String

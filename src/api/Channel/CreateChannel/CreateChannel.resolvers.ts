@@ -11,7 +11,7 @@ const resolvers: Resolvers = {
             console.log(name, shared, userId)
             try {
                 // logic to create channel
-                const requester = req.user;
+                const requester = req.currentUser;
                 const requested = await User.findOne({id:userId})
                 await Channel.create({name: name, users: [requester, requested], shared: shared}).save()
                 return {

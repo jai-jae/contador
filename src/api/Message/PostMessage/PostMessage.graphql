@@ -1,7 +1,6 @@
 type PostMessageResponse {
     ok: Boolean!,
-    channelId: Int,
-    content: String,
+    message: Message,
     error: String
 }
 

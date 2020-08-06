@@ -4,21 +4,20 @@ import Message from "../../../entities/Message";
 
 const resolvers: Resolvers = {
     Mutation: {
-        PostMessage: async (_, args: MutationPostMessageArgs, { req }): Promise<PostMessageResponse> => {
-            const { ReqUser } = req;
+        PostMessage: async (_, args: MutationPostMessageArgs, { req, pubSub }): Promise<PostMessageResponse> => {
+            const { currentUser } = req;
             try {
-                await Message.create({ ...args, senderId: ReqUser.id }).save();
+                const message = await Message.create({ ...args, senderId: currentUser.id }).save();
+                pubSub.publish("newChannelMessage", { MessageSubscription: message });
                 return {
                     ok: true,
-                    channelId: args.channelId,
-                    content: args.content,
+                    message: message,
                     error: null
                 };
             } catch(error) {
                 return {
                     ok: false,
-                    channelId: null,
-                    content: null,
+                    message: null,
                     error: error.message
                 };
             }
