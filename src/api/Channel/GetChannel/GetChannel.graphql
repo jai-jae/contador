@@ -1,0 +1,9 @@
+type ResponseGetChannel {
+    ok: Boolean!
+    error: String
+    channel: Channel
+}
+
+type Query {
+    GetChannel: ResponseGetChannel!
+}

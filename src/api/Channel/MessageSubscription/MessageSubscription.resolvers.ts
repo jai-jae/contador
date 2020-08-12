@@ -22,8 +22,8 @@ const MessageFilter = async (payload, _, { context }): Promise<boolean> => {
     const user: User = context.currentUser;
     const channelId = payload.MessageSubscription.channelId;
     try {
-        const channel: Promise<Channel | undefined> =  Channel.findOne({id: channelId})
-        const users: Promise<User[]> =  User.createQueryBuilder("user")
+        const channel: Promise<Channel | undefined> = Channel.findOne({id: channelId})
+        const users: Promise<User[]> = User.createQueryBuilder("user")
                                 .select("user.id")
                                 .innerJoin("user.channels", "channel", "channel.id = 1")
                                 .getMany();

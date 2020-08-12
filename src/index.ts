@@ -12,7 +12,7 @@ const GRAPHQL_ENDPOINT: string = "/graphql";
 const SUBSCRIPTION_ENDPOINT: string = "/subscription";
 
 
-const wsJWTAuth = async (connectionParams, webSocket) => {
+const wsJWTAuth = async (connectionParams) => {
     const token = connectionParams["X-JWT"];
     if (token) {
         const user = await decodeJWT(token);

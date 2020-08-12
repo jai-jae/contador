@@ -7,7 +7,7 @@ const resolvers: Resolvers = {
     Query: {
         GetUserById: async (_, args: QueryGetUserByIdArgs, { req }): Promise<GetUserByIdResponse> => {
             const id  = args.id;
-            const user = await User.findOne({where: { id }});
+            const user = await User.findOne({ id: id }, {relations:["channels"]});
             if (user) {
                 return {
                     ok: true,

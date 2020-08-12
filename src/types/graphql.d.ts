@@ -128,6 +128,7 @@ export type MutationSignInArgs = {
 export type Query = {
   __typename?: 'Query';
   GetAllUsers: GetAllUsersResponse;
+  GetChannel: ResponseGetChannel;
   GetChannelById: ResponseGetChannelById;
   GetChannelByName: GetChannelByNameResponse;
   GetUserByEmail: GetUserByEmailResponse;
@@ -158,6 +159,13 @@ export type QueryGetUserByIdArgs = {
 
 export type QueryGetUserByUsernameArgs = {
   username: Scalars['String'];
+};
+
+export type ResponseGetChannel = {
+  __typename?: 'ResponseGetChannel';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  channel?: Maybe<Channel>;
 };
 
 export type ResponseGetChannelById = {
