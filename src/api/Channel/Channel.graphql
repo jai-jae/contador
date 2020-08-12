@@ -1,9 +1,0 @@
-type Channel {
-    id: Int!
-    name: String!
-    messages: [Message]
-    users: [User]
-    shared: Boolean!
-    createdAt: String!
-    updatedAt: String
-}

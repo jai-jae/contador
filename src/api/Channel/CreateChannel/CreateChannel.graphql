@@ -1,8 +1,0 @@
-type CreateChannelResponse {
-    ok: Boolean!
-    error: String
-}
-
-type Mutation {
-    CreateChannel(name: String!, shared: Boolean!=false, userId: Int!): CreateChannelResponse!
-}

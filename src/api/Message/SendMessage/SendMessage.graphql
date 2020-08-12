@@ -1,9 +1,0 @@
-type SendMessageResponse {
-    ok: Boolean!,
-    message: Message,
-    error: String
-}
-
-type Mutation {
-    SendMessage(channelId: Int!, content: String!): SendMessageResponse!
-}

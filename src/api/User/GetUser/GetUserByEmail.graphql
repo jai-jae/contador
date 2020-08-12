@@ -1,9 +1,0 @@
-type GetUserByEmailResponse {
-    ok: Boolean!
-    error: String
-    user: User
-}
-
-type Query {
-    GetUserByEmail(email: String!): GetUserByEmailResponse!
-}

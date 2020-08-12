@@ -1,8 +1,0 @@
-type CreateUserResponse {
-    ok: Boolean!
-    error: String
-}
-
-type Mutation {
-    CreateUser(username: String!, email: String!, password: String!): CreateUserResponse!
-}

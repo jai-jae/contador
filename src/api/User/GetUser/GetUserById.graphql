@@ -1,9 +1,0 @@
-type GetUserByIdResponse {
-    ok: Boolean!
-    error: String
-    user: User
-}
-
-type Query {
-    GetUserById(id: Int!): GetUserByIdResponse!
-}
