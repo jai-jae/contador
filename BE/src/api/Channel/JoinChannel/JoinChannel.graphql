@@ -1,0 +1,8 @@
+type JoinChannelResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    JoinChannel(channelId: Int!): JoinChannelResponse!
+}

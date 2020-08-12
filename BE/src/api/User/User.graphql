@@ -1,0 +1,10 @@
+type User {
+    id: Int!
+    email: String!
+    username: String!
+    password:String!
+    messages: [Message]
+    channels: [Channel]
+    createdAt: String!
+    updatedAt: String
+}

@@ -1,0 +1,10 @@
+type Message {
+    id: Int!
+    content: String!
+    channel: Channel!
+    channelId: Int!
+    sender: User!
+    senderId: Int!
+    createdAt: String!
+    updatedAt: String
+}
