@@ -14,8 +14,8 @@
 
     HelloWorld.resolvers.ts
     resolvers: Resolver = {
-        Query: {
-            HelloWorld: async (parent, args, context, info): Promise<T> => {
+        [Query | Mutation | Subscription | Input]: {
+            HelloWord: async (parent, args, context, info): Promise<QueryResponseObj> => {
                 logic...
                 ...
                 ...

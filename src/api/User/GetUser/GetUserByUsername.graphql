@@ -1,0 +1,9 @@
+type GetUserByUsernameResponse {
+    ok: Boolean!
+    error: String
+    user: User
+}
+
+type Query {
+    GetUserByUsername(username: String!): GetUserByUsernameResponse!
+}

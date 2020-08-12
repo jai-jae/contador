@@ -4,7 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import logger from "morgan";
 import schema from "./schema";
-import decodeJWT from "./utils/DecodeJWT"
+import decodeJWT from "./utils/decodeJWT"
 
 
 class App {

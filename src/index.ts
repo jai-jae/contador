@@ -4,7 +4,7 @@ import app from "./app";
 import { Options } from "graphql-yoga";
 import { createConnection } from "typeorm";
 import dbConnOptions from "./ormconfig";
-import decodeJWT from "./utils/DecodeJWT";
+import decodeJWT from "./utils/decodeJWT";
 
 const PORT: number | string = 4242;
 const PLAYGROUND_ENDPOINT: string = "/playground";
@@ -12,8 +12,8 @@ const GRAPHQL_ENDPOINT: string = "/graphql";
 const SUBSCRIPTION_ENDPOINT: string = "/subscription";
 
 
-const wsJWTAuth = async connectionCookies => {
-    const token = connectionCookies["X-JWT"];
+const wsJWTAuth = async (connectionParams, webSocket) => {
+    const token = connectionParams["X-JWT"];
     if (token) {
         const user = await decodeJWT(token);
         if (user) {

@@ -8,7 +8,6 @@ const resolvers: Resolvers = {
     Mutation: {
         CreateChannel: async (_, args: MutationCreateChannelArgs, { req }): Promise<CreateChannelResponse> => {
             const {name, shared, userId} = args;
-            console.log(name, shared, userId)
             try {
                 // logic to create channel
                 const requester = req.currentUser;

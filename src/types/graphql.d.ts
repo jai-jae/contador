@@ -39,8 +39,29 @@ export type GetAllUsersResponse = {
   users?: Maybe<Array<Maybe<User>>>;
 };
 
-export type GetUserResponse = {
-  __typename?: 'GetUserResponse';
+export type GetChannelByNameResponse = {
+  __typename?: 'GetChannelByNameResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  channel?: Maybe<Channel>;
+};
+
+export type GetUserByEmailResponse = {
+  __typename?: 'GetUserByEmailResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+};
+
+export type GetUserByIdResponse = {
+  __typename?: 'GetUserByIdResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+};
+
+export type GetUserByUsernameResponse = {
+  __typename?: 'GetUserByUsernameResponse';
   ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
@@ -59,6 +80,7 @@ export type Message = {
   channel: Channel;
   channelId: Scalars['Int'];
   sender: User;
+  senderId: Scalars['Int'];
   createdAt: Scalars['String'];
   updatedAt?: Maybe<Scalars['String']>;
 };
@@ -68,7 +90,7 @@ export type Mutation = {
   CreateChannel: CreateChannelResponse;
   CreateUser: CreateUserResponse;
   JoinChannel: JoinChannelResponse;
-  PostMessage: PostMessageResponse;
+  SendMessage: SendMessageResponse;
   SignIn: SignInResponse;
 };
 
@@ -92,7 +114,7 @@ export type MutationJoinChannelArgs = {
 };
 
 
-export type MutationPostMessageArgs = {
+export type MutationSendMessageArgs = {
   channelId: Scalars['Int'];
   content: Scalars['String'];
 };
@@ -103,18 +125,14 @@ export type MutationSignInArgs = {
   password: Scalars['String'];
 };
 
-export type PostMessageResponse = {
-  __typename?: 'PostMessageResponse';
-  ok: Scalars['Boolean'];
-  message?: Maybe<Message>;
-  error?: Maybe<Scalars['String']>;
-};
-
 export type Query = {
   __typename?: 'Query';
   GetAllUsers: GetAllUsersResponse;
   GetChannelById: ResponseGetChannelById;
-  GetUser: GetUserResponse;
+  GetChannelByName: GetChannelByNameResponse;
+  GetUserByEmail: GetUserByEmailResponse;
+  GetUserById: GetUserByIdResponse;
+  GetUserByUsername: GetUserByUsernameResponse;
 };
 
 
@@ -123,8 +141,23 @@ export type QueryGetChannelByIdArgs = {
 };
 
 
-export type QueryGetUserArgs = {
+export type QueryGetChannelByNameArgs = {
+  name: Scalars['String'];
+};
+
+
+export type QueryGetUserByEmailArgs = {
+  email: Scalars['String'];
+};
+
+
+export type QueryGetUserByIdArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetUserByUsernameArgs = {
+  username: Scalars['String'];
 };
 
 export type ResponseGetChannelById = {
@@ -132,6 +165,13 @@ export type ResponseGetChannelById = {
   ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
   channel?: Maybe<Channel>;
+};
+
+export type SendMessageResponse = {
+  __typename?: 'SendMessageResponse';
+  ok: Scalars['Boolean'];
+  message?: Maybe<Message>;
+  error?: Maybe<Scalars['String']>;
 };
 
 export type SignInResponse = {
@@ -143,7 +183,6 @@ export type SignInResponse = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  ChannelSubscription?: Maybe<Channel>;
   MessageSubscription?: Maybe<Message>;
 };
 

@@ -20,16 +20,16 @@ const resolvers: Resolvers = {
                     ok: true,
                     error: null,
                     users: users
-                }
+                };
             } else {
                 return {
                     ok: false,
                     error: "user not found",
                     users: null
-                }
+                };
             }
         }
     }
-}
+};
 
 export default resolvers;

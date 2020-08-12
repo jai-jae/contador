@@ -1,7 +1,7 @@
 import { Resolvers } from "../../../types/resolvers";
 import { MutationSignInArgs, SignInResponse } from "../../../types/graphql";
 import User from "../../../entities/User";
-import createJWT from "../../../utils/CreateJWT";
+import encodeJWT from "../../../utils/encodeJWT";
 
 
 const resolvers: Resolvers = {
@@ -9,27 +9,26 @@ const resolvers: Resolvers = {
         SignIn: async (_, args: MutationSignInArgs): Promise<SignInResponse> => {
             const { username, password } = args;
             try {
-                const user = await User.findOne({ where: { username } })
+                const user = await User.findOne({ where: { username: username } })
                 if (!user) {
                     return {
                         ok: false,
-                        error: "Wrong username!",
+                        error: "please check your username.",
                         token: null
                     };
                 }
                 const checkPassword = await user.check_password(password);
                 if (checkPassword) {
-                    console.log("userid when creating jwt : ", user.id, "\n")
-                    const token = createJWT(user.id);
+                    const token = encodeJWT(user.id);
                     return {
                         ok: true,
                         error: null,
                         token: token
-                    }
+                    };
                 } else {
                     return {
                         ok: false,
-                        error: "wrong password!",
+                        error: "please check your password.",
                         token: null
                     };
                 }
@@ -38,7 +37,7 @@ const resolvers: Resolvers = {
                     ok: false,
                     error: error.message,
                     token: null
-                }
+                };
             }
         }
     }

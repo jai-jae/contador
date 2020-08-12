@@ -1,12 +1,12 @@
 import  { Resolvers } from "../../../types/resolvers";
 import User from "../../../entities/User";
-import {QueryGetUserArgs, GetUserResponse} from "../../../types/graphql";
+import {QueryGetUserByIdArgs, GetUserByIdResponse} from "../../../types/graphql";
 
 
 const resolvers: Resolvers = {
     Query: {
-        GetUser: async (_, args: QueryGetUserArgs, { req }): Promise<GetUserResponse> => {
-            const { id } = args;
+        GetUserById: async (_, args: QueryGetUserByIdArgs, { req }): Promise<GetUserByIdResponse> => {
+            const id  = args.id;
             const user = await User.findOne({where: { id }});
             if (user) {
                 return {
