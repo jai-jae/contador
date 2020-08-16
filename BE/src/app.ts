@@ -1,17 +1,22 @@
-import { GraphQLServer, PubSub } from "graphql-yoga";
+import { GraphQLServer } from "graphql-yoga";
 import {Response, NextFunction} from "express";
 import cors from "cors";
 import helmet from "helmet";
 import logger from "morgan";
 import schema from "./schema";
 import decodeJWT from "./utils/decodeJWT"
-
+import { RedisPubSub } from 'graphql-redis-subscriptions';
+import Redis from 'ioredis';
+import redisConfig from "./redisConfig";
 
 class App {
     public pubSub: any;
     public app: GraphQLServer;
     constructor() {
-        this.pubSub = new PubSub();
+        this.pubSub = new RedisPubSub({
+            publisher: new Redis(redisConfig),
+            subscriber: new Redis(redisConfig)
+        })
         this.app = new GraphQLServer({
             schema: schema,
             context: req => {

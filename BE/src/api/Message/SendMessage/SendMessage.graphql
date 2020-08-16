@@ -1,6 +1,5 @@
 type SendMessageResponse {
     ok: Boolean!,
-    message: Message,
     error: String
 }
 
