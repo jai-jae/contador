@@ -19,7 +19,9 @@ query getChannel {
             messages {
                 id
                 content
-                senderId
+                sender {
+                  username
+                }
             }
         }
     }
@@ -31,7 +33,9 @@ subscription messageSubscription {
   MessageSubscription {
     id
     content
-    senderId
+    sender {
+      username
+    }
   }
 }
 `;
@@ -40,6 +44,20 @@ export const SEND_MESSAGE = gql`
   mutation sendMessage($channelId: Int!, $content: String!) {
     SendMessage(channelId: $channelId, content: $content) {
       ok
+    }
+  }
+`;
+
+export const GET_MESSAGE_FROM_CHANNEL = gql`
+  query getMessageFromChannel($channelId: Int!) {
+    GetMessageFromChannel(channelId: $channelId) {
+      messages {
+        id
+        content
+        sender {
+          username
+        }
+      }
     }
   }
 `;

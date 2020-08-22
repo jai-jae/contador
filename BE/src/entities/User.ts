@@ -24,13 +24,13 @@ class User extends BaseEntity {
     id: number;
 
     @IsEmail()
-    @Column({ type: "text", unique: true, nullable: false})
+    @Column({ type: "text", unique: true, nullable: false })
     email: string;
     
-    @Column({ type: "text", unique: true, nullable: false})
+    @Column({ type: "text", unique: true, nullable: false })
     username: string;
 
-    @Column({ type: "text", nullable: false})
+    @Column({ type: "text", nullable: false })
     password: string;
 
     @OneToMany(type => Message, message => message.sender)

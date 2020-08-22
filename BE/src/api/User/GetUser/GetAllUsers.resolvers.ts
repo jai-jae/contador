@@ -2,11 +2,6 @@ import  { Resolvers } from "../../../types/resolvers";
 import User from "../../../entities/User";
 import {GetAllUsersResponse} from "../../../types/graphql";
 
-// const users = await getRepository(User)
-//     .createQueryBuilder("user")
-//     .leftJoinAndSelect("user.photos", "photo")
-//     .take(10)
-//     .getMany();
 
 const resolvers: Resolvers = {
     Query: {

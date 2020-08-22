@@ -11,13 +11,11 @@ const resolvers: Resolvers = {
                 pubSub.publish("newChannelMessage", { MessageSubscription: message });
                 return {
                     ok: true,
-                    message: message,
                     error: null
                 };
             } catch(error) {
                 return {
                     ok: false,
-                    message: null,
                     error: error.message
                 };
             }

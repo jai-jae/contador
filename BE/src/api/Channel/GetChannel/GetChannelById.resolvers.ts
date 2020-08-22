@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
     Query: {
         GetChannelById: async (_, args: QueryGetChannelByIdArgs, { req }): Promise<ResponseGetChannelById> => {
             try {
-                const channel = await Channel.findOne({id: args.channelId}, {relations:["messages"]});
+                const channel = await Channel.findOne({id: args.channelId});
                 return {
                     ok: true,
                     error: null,

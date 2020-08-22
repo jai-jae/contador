@@ -46,6 +46,13 @@ export type GetChannelByNameResponse = {
   channel?: Maybe<Channel>;
 };
 
+export type GetMessageFromChannelResponse = {
+  __typename?: 'GetMessageFromChannelResponse';
+  ok: Scalars['Boolean'];
+  messages?: Maybe<Array<Maybe<Message>>>;
+  error?: Maybe<Scalars['String']>;
+};
+
 export type GetUserByEmailResponse = {
   __typename?: 'GetUserByEmailResponse';
   ok: Scalars['Boolean'];
@@ -131,6 +138,7 @@ export type Query = {
   GetChannel: ResponseGetChannel;
   GetChannelById: ResponseGetChannelById;
   GetChannelByName: GetChannelByNameResponse;
+  GetMessageFromChannel: GetMessageFromChannelResponse;
   GetUserByEmail: GetUserByEmailResponse;
   GetUserById: GetUserByIdResponse;
   GetUserByUsername: GetUserByUsernameResponse;
@@ -144,6 +152,11 @@ export type QueryGetChannelByIdArgs = {
 
 export type QueryGetChannelByNameArgs = {
   name: Scalars['String'];
+};
+
+
+export type QueryGetMessageFromChannelArgs = {
+  channelId: Scalars['Int'];
 };
 
 
@@ -178,7 +191,6 @@ export type ResponseGetChannelById = {
 export type SendMessageResponse = {
   __typename?: 'SendMessageResponse';
   ok: Scalars['Boolean'];
-  message?: Maybe<Message>;
   error?: Maybe<Scalars['String']>;
 };
 
