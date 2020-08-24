@@ -1,0 +1,9 @@
+type GetMessageFromChannelResponse {
+    ok: Boolean!
+    messages: [Message]
+    error: String
+}
+
+type Query {
+    GetMessageFromChannel(channelId: Int!): GetMessageFromChannelResponse!
+}

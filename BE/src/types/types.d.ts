@@ -1,4 +1,3 @@
-const PHONE = "PHONE"
-const EMAIL = "EMAIL"
+export type verificationTarget = "PHONE" | "EMAIL";
 
-export type verificationTarget = PHONE | EMAIL;
+export type memberTypes = "OWNER" | "ADMIN" | "MODERATOR" | "MEMBER";

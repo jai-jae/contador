@@ -1,27 +1,43 @@
 import { useQuery } from '@apollo/client';
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
     SUBSCRIBE_TO_MESSAGES,
     GET_MESSAGE_FROM_CHANNEL
 } from "./Queries";
 import MyForm from "./SubmitForm";
+import "./Channel.css";
 
-
-const MessageList = ({ subscribeToNewMessages, loading, data }) => { 
+const MessageList = ({ subscribeToNewMessages,data,loading }) => {
+    const LastMessageRef = useRef<HTMLDivElement>(null);
+    
     useEffect(() => {
-        subscribeToNewMessages()
-    }, [])
+        subscribeToNewMessages();
+    }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [data]);
+
+    const scrollToBottom = () => {
+        LastMessageRef?.current?.scrollIntoView({ behavior: "auto" });
+    };
+
     if (!data || loading) {
         return <p>loading...</p>
     }
     const messages = data.GetMessageFromChannel.messages;
-    return messages.map(message =>
-        <div key={message.id}>
-            <p>{message.sender.username}: {message.content}</p>
-            <p>--------------------------------------</p>
+
+    return (
+        <div className="messagesWrapper">
+          { messages.map(message => (
+                <span key={message.id}>
+                    {message.sender.username} : {message.content}
+                </span>
+          )) }
+          <div ref={ LastMessageRef } />
         </div>
-    )
-  }
+      );
+}
 
 const handleNewMessage = (subscribeToMore) => {
     subscribeToMore({
@@ -47,26 +63,16 @@ const handleNewMessage = (subscribeToMore) => {
 
 export const App = () => {
     const { subscribeToMore, loading, data } = useQuery(GET_MESSAGE_FROM_CHANNEL,
-        { variables: { channelId: 1 } }) // channelId must come from userState props!!!
+        { variables: { channelId: 8 } }); // channelId must come from userState props!!!
     return (
-        <>
-            <div
-                className='row'
-                style={{
-                    height: window.innerHeight - 100,
-                    overflowY: 'scroll',
-                    scrollBehavior: 'smooth'
-                }}>
-                <div >
-                    <MessageList
-                        data={ data }
-                        loading={ loading }
-                        subscribeToNewMessages={ () => handleNewMessage(subscribeToMore) }
-                    />
-                </div>
-            </div>
+        <div className="App">
+            <MessageList
+                    data={ data }
+                    loading={ loading }
+                    subscribeToNewMessages={ () => handleNewMessage(subscribeToMore) }
+            />
             <MyForm />
-        </>
+        </div>
   );
 }
 

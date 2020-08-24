@@ -12,7 +12,7 @@ interface IMessage {
 const MyForm = () => {
     const [values, setValues] = useState<IMessage>({
         senderId: 1, // initial values set from the root App
-        channelId: 1, // initial values set from the root App
+        channelId: 8, // initial values set from the root App
         message: ""
     });
     // if channelId or senderId is not set properly return to root
@@ -27,7 +27,7 @@ const MyForm = () => {
 
     const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        sendMessage({ variables: {channelId: 1, content: values.message }});
+        sendMessage({ variables: {channelId: 8, content: values.message }});
         setValues({...values, message: ""});
     };
 

@@ -6,11 +6,9 @@ import {
     Column,
     PrimaryGeneratedColumn, 
     UpdateDateColumn,
-    JoinTable,
-    ManyToMany,
 } from "typeorm";
+import Member from "./Member";
 import Message from "./Message";
-import User from "./User";
 
 
 @Entity()
@@ -21,12 +19,15 @@ class Channel extends BaseEntity {
     @OneToMany(type => Message, message => message.channel)
     messages: Message[];
 
-    @Column({type: "text", nullable: false })
+    @Column({type: "text", nullable: false, unique: true })
     name: string;
 
-    @ManyToMany(type => User, user => user.channels, { cascade: true })
-    @JoinTable()
-    users: User[]
+    // @ManyToMany(type => User, user => user.channels, { cascade: true })
+    // @JoinTable()
+    // users: User[]
+
+    @OneToMany(type => Member, member => member.channel)
+    members: Member[];
 
     @Column({ type: "boolean", default: false, nullable: false})
     shared: boolean;

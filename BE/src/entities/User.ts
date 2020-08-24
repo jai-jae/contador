@@ -6,14 +6,13 @@ import {
     CreateDateColumn,
     Entity, 
     OneToMany,
-    ManyToMany,
     PrimaryGeneratedColumn, 
     UpdateDateColumn,
 } from "typeorm";
 import { IsEmail } from "class-validator";
 import bcrypt from "bcrypt";
 import Message from "./Message";
-import Channel from "./Channel";
+import Member from "./Member";
 
 
 const BCRYPT_ROUNDS = 12;
@@ -36,8 +35,11 @@ class User extends BaseEntity {
     @OneToMany(type => Message, message => message.sender)
     messages: Message[];
 
-    @ManyToMany(type => Channel, channel => channel.users)
-    channels: Channel[];
+    // @ManyToMany(type => Channel, channel => channel.users)
+    // channels: Channel[];
+
+    @OneToMany(type => Member, member => member.user)
+    members: Member[];
 
     @CreateDateColumn()
     createdAt: string;
