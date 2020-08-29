@@ -7,7 +7,34 @@ import {
 import MyForm from "./SubmitForm";
 import "./Channel.css";
 
-const MessageList = ({ subscribeToNewMessages,data,loading }) => {
+
+interface Message {
+    id: number;
+    content: string;
+    createdAt: number;
+    sender: {
+        username: string;
+    };
+}
+
+interface MessageData {
+    GetMessageFromChannel: {
+        messages: Message[]
+    }
+}
+
+interface GetMessageFromChannelVars {
+    channelId: number;
+}
+
+interface IMessageListProps {
+    data?: MessageData;
+    loading: boolean;
+    subscribeToNewMessages: () => void;
+
+}
+
+const MessageList = ({ subscribeToNewMessages, data, loading }: IMessageListProps) => {
     const LastMessageRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
@@ -62,14 +89,16 @@ const handleNewMessage = (subscribeToMore) => {
 };
 
 export const App = () => {
-    const { subscribeToMore, loading, data } = useQuery(GET_MESSAGE_FROM_CHANNEL,
-        { variables: { channelId: 8 } }); // channelId must come from userState props!!!
+    // channelId must come from userState props!!!
+    const { data, subscribeToMore, loading } =
+        useQuery<MessageData, GetMessageFromChannelVars>(GET_MESSAGE_FROM_CHANNEL, { variables:{ channelId: 8 } });
+    const subscriptionHandler = () => handleNewMessage(subscribeToMore);
     return (
         <div className="App">
             <MessageList
                     data={ data }
                     loading={ loading }
-                    subscribeToNewMessages={ () => handleNewMessage(subscribeToMore) }
+                    subscribeToNewMessages={ subscriptionHandler }
             />
             <MyForm />
         </div>

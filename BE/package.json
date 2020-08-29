@@ -31,7 +31,6 @@
   },
   "scripts": {
     "types": "graphql-codegen --config codegen.yml",
-    "copyfiles": "find . -type f -name '*.graphql' | cpio -pdm dist",
     "build": "tsc-watch --onSuccess \"node ./dist/index.js\"",
     "dev2": "nodemon -e ts,graphql --exec \"yarn run build\"",
     "gogo": "nodemon -e ts,graphql --exec ts-node src/index.ts",
