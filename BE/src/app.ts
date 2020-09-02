@@ -9,6 +9,7 @@ import { RedisPubSub } from 'graphql-redis-subscriptions';
 import Redis from 'ioredis';
 import redisConfig from "./redisConfig";
 
+
 class App {
     public pubSub: any;
     public app: GraphQLServer;

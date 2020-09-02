@@ -1,4 +1,4 @@
-import { withFilter } from "graphql-yoga";
+import { withFilter } from "apollo-server-express";
 import User from "../../../entities/User";
 import Channel from "../../../entities/Channel";
 import Member from "../../../entities/Member";
@@ -17,7 +17,7 @@ const messageFilter = async (payload, _, { context }): Promise<boolean> => {
         if (member)
             return true;
         return false;
-    } catch(error) {
+    } catch (error) {
         return false;
     }
 }
@@ -26,7 +26,8 @@ const resolvers = {
     Subscription: {
         MessageSubscription: {
             subscribe: withFilter(
-                (_, __, { pubSub }) => pubSub.asyncIterator("newChannelMessage"), messageFilter)
+                (_, __, { pubSub }) => pubSub.asyncIterator("newChannelMessage"), messageFilter
+            )
         }
     }
 };

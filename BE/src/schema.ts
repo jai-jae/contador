@@ -19,7 +19,7 @@ const allResolvers: any[] = loadFilesSync(
 const mergedTypeDefs = mergeTypeDefs(allGraphQLTypes);
 const mergedResolvers = mergeResolvers(allResolvers);
 
-const schema = makeExecutableSchema({
+const schema: GraphQLSchema = makeExecutableSchema({
     typeDefs: mergedTypeDefs,
     resolvers: mergedResolvers
 });
